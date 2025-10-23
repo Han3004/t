@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ê Trâm ơi.</title>
+    <!-- Tải Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;700&display=swap" rel="stylesheet">
+    <style>
+        /* Thiết lập font Inter */
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #f7e8f5; /* Màu nền hồng nhạt */
+        }
+        /* Custom animation for the heart pulse */
+        @keyframes pulse-once {
+            0% { transform: scale(1); }
+            50% { transform: scale(1.1); }
+            100% { transform: scale(1); }
+        }
+        .heart-pulse {
+            animation: pulse-once 0.5s ease-in-out;
+        }
+    </style>
+</head>
+<body class="min-h-screen flex items-center justify-center p-4">
+
+    <!-- Thẻ chứa chính (Main Card Container) -->
+    <div id="card" class="bg-white p-8 md:p-12 max-w-lg w-full rounded-3xl shadow-2xl transition-all duration-500 ease-in-out border-4 border-pink-400">
+        
+        <!-- Tiêu đề -->
+        <h1 class="text-3xl md:text-4xl font-bold text-center mb-6 text-pink-600">Ê Trâm ơi. </h1>
+        
+        <!-- Nội dung ban đầu và nút tương tác -->
+        <div id="initial-content" class="flex flex-col items-center space-y-6">
+            <p class="text-lg text-gray-700 text-center">
+                Có một điều chị muốn hỏi em...
+            </p>
+            
+            <!-- Nút Trái Tim (Heart Button) -->
+            <button id="reveal-button" 
+                    class="p-6 bg-red-500 hover:bg-red-600 rounded-full shadow-lg transition duration-300 transform hover:scale-110 active:scale-95 focus:outline-none focus:ring-4 focus:ring-red-300">
+                <svg id="heart-icon" class="w-16 h-16 text-white" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
+                    <path fill-rule="evenodd" d="M3.172 5.172a4 4 0 015.656 0L10 6.343l1.172-1.171a4 4 0 115.656 5.656L10 17.657l-6.828-6.829a4 4 0 010-5.656z" clip-rule="evenodd"></path>
+                </svg>
+            </button>
+
+            <p class="text-sm text-gray-500">
+                Bấm vào trái tim để xem ạ
+            </p>
+        </div>
+
+        <!-- Nội dung được tiết lộ (Revealed Content) -->
+        <div id="revealed-content" class="hidden space-y-4 text-center">
+            
+            <p class="text-xl md:text-2xl font-semibold text-pink-500 mb-6">
+                Có một điều chị muốn hỏi em...
+            </p>
+
+            <ul class="space-y-4 text-left p-4 bg-pink-50 rounded-xl border border-pink-200">
+                <li class="flex items-start text-gray-800">
+                    <span class="mr-2 text-red-500 font-bold text-2xl">?</span>
+                    <span class="text-lg">Em có đang tìm hiểu ai không?</span>
+                </li>
+                <li class="flex items-start text-gray-800">
+                    <span class="mr-2 text-red-500 font-bold text-2xl">?</span>
+                    <span class="text-lg">Chị có thể nhắn tin với em được không?</span>
+                </li>
+                <li class="flex items-start text-gray-800">
+                    <span class="mr-2 text-red-500 font-bold text-2xl">?</span>
+                    <span class="text-lg">Em có thể cho chị tìm hiểu em không?</span>
+                </li>
+            </ul>
+
+            <p class="text-xl font-bold text-pink-600 pt-6">
+                Chị nghĩ là, chị muốn tìm hiểu em, muốn được nhắn tin, nói chuyện với em nhiều hơn ạ.
+            </p>
+        </div>
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const revealButton = document.getElementById('reveal-button');
+            const initialContent = document.getElementById('initial-content');
+            const revealedContent = document.getElementById('revealed-content');
+            const heartIcon = document.getElementById('heart-icon');
+
+            revealButton.addEventListener('click', () => {
+                // 1. Kích hoạt hiệu ứng nhịp tim
+                heartIcon.classList.add('heart-pulse');
+                
+                // Sau khi animation kết thúc, chuyển đổi nội dung
+                setTimeout(() => {
+                    initialContent.classList.add('hidden');
+                    revealedContent.classList.remove('hidden');
+                    
+                    // Thay đổi style của thẻ chính để trông gọn gàng hơn
+                    const card = document.getElementById('card');
+                    card.classList.remove('shadow-2xl');
+                    card.classList.add('shadow-xl');
+                }, 500); // Đợi cho hiệu ứng pulse xong
+
+                // Ngăn người dùng bấm nút nhiều lần
+                revealButton.disabled = true;
+            });
+        });
+    </script>
+</body>
+</html>
